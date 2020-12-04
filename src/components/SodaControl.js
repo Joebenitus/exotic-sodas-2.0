@@ -28,7 +28,7 @@ class SodaControl extends React.Component {
 
   handleAddingNewSodaToList = (newSoda) => {
     const { dispatch } = this.props;
-    const action = addSoda(newSoda);
+    const action = a.addSoda(newSoda);
     dispatch(action);
     const action2 = a.toggleForm();
     dispatch(action2);
