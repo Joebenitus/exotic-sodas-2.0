@@ -3,13 +3,11 @@ import SodaDetail from './SodaDetail';
 import SodaForm from './NewSodaForm';
 import SodaList from './SodaList';
 import { connect } from 'react-redux';
-import Soda from './Soda';
 import PropTypes from 'prop-types';
 
 class SodaControl extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props)
     this.state = {
       formVisibleOnPage: false,
       selectedSoda: null
