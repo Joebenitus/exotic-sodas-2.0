@@ -13,4 +13,14 @@ describe("Joe's Exotic Sodas actions", () => {
       type: 'TOGGLE_FORM'
     });
   });
+
+  it('addSoda should create ADD_SODA action', () => {
+    expect(actions.addSoda({name: 'Gamer Soda', flavor: 'Battery Acid', cans: '200', id: 1})).toEqual({
+      type: 'ADD_SODA',
+      name: 'Gamer Soda',
+      flavor: 'Battery Acid',
+      cans: '200',
+      id: 1
+    });
+  });
 });
