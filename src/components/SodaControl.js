@@ -4,6 +4,7 @@ import SodaForm from './NewSodaForm';
 import SodaList from './SodaList';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as a from './../actions';
 
 class SodaControl extends React.Component {
   constructor(props) {
@@ -20,27 +21,16 @@ class SodaControl extends React.Component {
       });
     } else {
       const { dispatch } = this.props;
-      const action = {
-        type: 'TOGGLE_FORM'
-      }
+      const action = a.toggleForm();
       dispatch(action);
     }
   }
 
   handleAddingNewSodaToList = (newSoda) => {
     const { dispatch } = this.props;
-    const { name, flavor, cans, id } = newSoda;
-    const action = {
-      type: 'ADD_SODA',
-      name,
-      flavor,
-      cans,
-      id
-    }
+    const action = addSoda(newSoda);
     dispatch(action);
-    const action2 = {
-      type: 'TOGGLE_FORM'
-    }
+    const action2 = a.toggleForm();
     dispatch(action2);
   }
 
@@ -51,18 +41,13 @@ class SodaControl extends React.Component {
 
   handleDeletingSoda = (id) => {
     const { dispatch } = this.props;
-    const action = {
-      type: 'DELETE_SODA',
-      id
-    }
+    const action = a.deleteSoda(id);
     dispatch(action);
-    this.setState({
-      selectedSoda: null
-    })
+    this.setState({selectedSoda: null})
   }
 
   handleSellingSoda = (id) => {
-    const soldSoda = this.state.masterSodaList.filter(soda => soda.id === id)[0];
+    const soldSoda = this.props.masterSodaList[id];
     if (parseInt(soldSoda.cans) < 1) {
       soldSoda.cans = 'Sold Out!';
     }
