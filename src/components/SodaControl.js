@@ -4,6 +4,7 @@ import SodaForm from './NewSodaForm';
 import SodaList from './SodaList';
 import { connect } from 'react-redux';
 import Soda from './Soda';
+import PropTypes from 'prop-types';
 
 class SodaControl extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class SodaControl extends React.Component {
   }
 
   handleChangingSelectedSoda = (id) => {
-    const selectedSoda = this.state.masterSodaList.filter(soda => soda.id === id)[0];
+    const selectedSoda = this.props.masterSodaList[id];
     this.setState({selectedSoda: selectedSoda});
   }
 
@@ -88,7 +89,7 @@ class SodaControl extends React.Component {
       buttonText = 'Return to Soda List';
     } else {
       currentlyVisibleState = <SodaList 
-      sodaList={this.state.masterSodaList} 
+      sodaList={this.props.masterSodaList} 
       onSodaSelection={this.handleChangingSelectedSoda}/>
       buttonText = 'Add Soda';
     }
@@ -103,6 +104,16 @@ class SodaControl extends React.Component {
   }
 }
 
-SodaControl = connect()(SodaControl)
+SodaControl.propTypes = {
+  masterSodaList: PropTypes.object
+}
+
+const mapStateToProps = state => {
+  return {
+    masterSodaList: state
+  }
+}
+
+SodaControl = connect(mapStateToProps)(SodaControl)
 
 export default SodaControl;
