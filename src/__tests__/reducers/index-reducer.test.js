@@ -20,4 +20,16 @@ describe('rootReducer', () => {
   test('Check that initial state of formVisibleReducer matches root reducer', () => {
     expect(store.getState().formVisibleOnPage).toEqual(formVisibleReducer(undefined, { type: null}));
   });
+
+  test('Check that ADD_SODA action works for sodaListReducer and rootReducer', () => {
+    const action = {
+      type: 'ADD_SODA',
+      name: 'TV-Static',
+      flavor: 'Vinegar',
+      cans: '43',
+      id: 1
+    }
+    store.dispatch(action);
+    expect(store.getState().masterSodaList).toEqual(sodaListReducer(undefined, action));
+  });
 });
