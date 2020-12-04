@@ -2,6 +2,21 @@ import sodaListReducer from '../../reducers/soda-list-reducer';
 
 describe('sodaListReducer', () => {
 
+  const currentState = {
+    1: {
+      name: 'Grandma\'s Kiss',
+      flavor: 'Salty Watermelon',
+      cans: '57',
+      id: 1
+    },
+    2: {
+      name: 'Bubble Reaper',
+      flavor: 'Jalapeno',
+      cans: '52',
+      id: 2
+    }
+  }
+
   let action;
   const sodaData = {
     name: 'Non-Alcoholic Beer',
@@ -30,6 +45,21 @@ describe('sodaListReducer', () => {
         flavor,
         cans,
         id
+      }
+    })
+  })
+
+  test('Should successfully delete a soda', () => {
+    action = {
+      type: 'DELETE_SODA',
+      id: 1
+    };
+    expect(sodaListReducer(currentState, action)).toEqual({
+      2: {
+        name: 'Bubble Reaper',
+        flavor: 'Jalapeno',
+        cans: '52',
+        id: 2
       }
     })
   })
