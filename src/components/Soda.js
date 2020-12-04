@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Soda(props) {
+  const sodaStyling = {
+    cursor: 'pointer'
+  }
   return (
     <React.Fragment>
-      <div onClick = {() => props.whenSodaClicked(props.id)}>
+      <div onClick = {() => props.whenSodaClicked(props.id)} style={sodaStyling}>
         <h3>{props.name}</h3>
         <h4>Flavor: {props.flavor}</h4>
         <p><em>Cans left: {props.cans}</em></p>

@@ -9,7 +9,6 @@ class SodaControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: false,
       selectedSoda: null
     };
   }
@@ -17,13 +16,14 @@ class SodaControl extends React.Component {
   handleClick = () => {
     if (this.state.selectedSoda !== null) {
       this.setState({
-        formVisibleOnPage: false,
         selectedSoda: null
       });
     } else {
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage
-      }));
+      const { dispatch } = this.props;
+      const action = {
+        type: 'TOGGLE_FORM'
+      }
+      dispatch(action);
     }
   }
 
@@ -38,7 +38,10 @@ class SodaControl extends React.Component {
       id
     }
     dispatch(action);
-    this.setState({formVisibleOnPage: false})
+    const action2 = {
+      type: 'TOGGLE_FORM'
+    }
+    dispatch(action2);
   }
 
   handleChangingSelectedSoda = (id) => {
@@ -81,7 +84,7 @@ class SodaControl extends React.Component {
       onClickingDelete={this.handleDeletingSoda} 
       onClickingSell={this.handleSellingSoda}/>
       buttonText = 'Return to Soda List';
-    } else if (this.state.formVisibleOnPage) {
+    } else if (this.props.formVisibleOnPage) {
       currentlyVisibleState = <SodaForm 
       onNewSodaCreation={this.handleAddingNewSodaToList}/>
       buttonText = 'Return to Soda List';
@@ -103,12 +106,14 @@ class SodaControl extends React.Component {
 }
 
 SodaControl.propTypes = {
-  masterSodaList: PropTypes.object
+  masterSodaList: PropTypes.object,
+  formVisibleOnPage: PropTypes.bool
 }
 
 const mapStateToProps = state => {
   return {
-    masterSodaList: state
+    masterSodaList: state.masterSodaList,
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 
