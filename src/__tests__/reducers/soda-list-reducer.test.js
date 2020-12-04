@@ -1,4 +1,5 @@
 import sodaListReducer from '../../reducers/soda-list-reducer';
+import * as c from './../../actions/ActionTypes';
 
 describe('sodaListReducer', () => {
 
@@ -32,7 +33,7 @@ describe('sodaListReducer', () => {
   test('Should successfully add new soda data to masterSodaList', () => {
     const { name, flavor, cans, id } = sodaData;
     action = {
-      type: 'ADD_SODA',
+      type: c.ADD_SODA,
       name,
       flavor,
       cans,
@@ -51,7 +52,7 @@ describe('sodaListReducer', () => {
 
   test('Should successfully delete a soda', () => {
     action = {
-      type: 'DELETE_SODA',
+      type: c.DELETE_SODA,
       id: 1
     };
     expect(sodaListReducer(currentState, action)).toEqual({
