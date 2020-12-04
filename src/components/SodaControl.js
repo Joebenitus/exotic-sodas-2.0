@@ -2,13 +2,15 @@ import React from 'react';
 import SodaDetail from './SodaDetail';
 import SodaForm from './NewSodaForm';
 import SodaList from './SodaList';
+import { connect } from 'react-redux';
+import Soda from './Soda';
 
 class SodaControl extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props)
     this.state = {
       formVisibleOnPage: false,
-      masterSodaList: [],
       selectedSoda: null
     };
   }
@@ -27,9 +29,17 @@ class SodaControl extends React.Component {
   }
 
   handleAddingNewSodaToList = (newSoda) => {
-    const newMasterSodaList = this.state.masterSodaList.concat(newSoda);
-    this.setState({ masterSodaList: newMasterSodaList,
-                    formVisibleOnPage: false })
+    const { dispatch } = this.props;
+    const { name, flavor, cans, id } = newSoda;
+    const action = {
+      type: 'ADD_SODA',
+      name,
+      flavor,
+      cans,
+      id
+    }
+    dispatch(action);
+    this.setState({formVisibleOnPage: false})
   }
 
   handleChangingSelectedSoda = (id) => {
@@ -38,9 +48,13 @@ class SodaControl extends React.Component {
   }
 
   handleDeletingSoda = (id) => {
-    const newMasterSodaList = this.state.masterSodaList.filter(soda => soda.id !== id);
+    const { dispatch } = this.props;
+    const action = {
+      type: 'DELETE_SODA',
+      id
+    }
+    dispatch(action);
     this.setState({
-      masterSodaList: newMasterSodaList,
       selectedSoda: null
     })
   }
@@ -88,5 +102,7 @@ class SodaControl extends React.Component {
     )
   }
 }
+
+SodaControl = connect()(SodaControl)
 
 export default SodaControl;
