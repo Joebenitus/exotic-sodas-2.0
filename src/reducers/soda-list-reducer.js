@@ -16,6 +16,8 @@ export default (state = {}, action) => {
       const newState = { ...state };
       delete newState[id];
       return newState;
+    case c.SELECT_SODA:
+      return state[id];
     default:
       return state;
   }

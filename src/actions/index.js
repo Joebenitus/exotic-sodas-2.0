@@ -19,3 +19,7 @@ export const addSoda = (soda) => {
     id
   }
 }
+
+export const selectSoda = () => ({
+  type: c.SELECT_SODA
+});
